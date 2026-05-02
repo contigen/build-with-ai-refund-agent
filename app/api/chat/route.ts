@@ -84,7 +84,7 @@ Never output plain text formatting when a tool call is more appropriate. Keep co
             date: new Date().toLocaleDateString('en-US', {
               month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
             }),
-            status: 'SUCCESSFUL',
+            status: txHash ? 'SUCCESSFUL' : 'FAILED',
             txHash: txHash || ''
           };
         },
