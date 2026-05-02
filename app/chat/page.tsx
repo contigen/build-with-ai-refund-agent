@@ -120,6 +120,7 @@ export default function ChatPage() {
                         items={(part.output as any).items}
                         date={(part.output as any).date}
                         txHash={(part.output as any).txHash}
+                        status={(part.output as any).status}
                       />
                     </div>
                   );

@@ -1,4 +1,4 @@
-import { CheckCircle2, Check } from "lucide-react";
+import { CheckCircle2, Check, AlertCircle } from "lucide-react";
 
 export interface Product {
   id: string;
@@ -61,13 +61,17 @@ export function RefundConfirmationCard({
   items,
   date,
   txHash,
+  status = 'SUCCESSFUL',
 }: {
   amount: number;
   method: string;
   items: string[];
   date: string;
   txHash?: string;
+  status?: string;
 }) {
+  const isSuccess = status === 'SUCCESSFUL';
+
   return (
     <div className="w-full max-w-sm rounded-xl border border-zinc-200 bg-white shadow-sm overflow-hidden text-sm mt-2">
       <div className="bg-zinc-50 border-b border-zinc-200 px-4 py-2 font-mono text-xs text-zinc-500 uppercase tracking-wider flex justify-between">
@@ -75,9 +79,9 @@ export function RefundConfirmationCard({
         <span>#REF8421</span>
       </div>
       <div className="p-4 space-y-4">
-        <div className="flex items-center gap-3 text-emerald-600 bg-emerald-50 px-3 py-2 rounded-lg border border-emerald-100">
-          <CheckCircle2 size={20} />
-          <span className="font-semibold text-sm">Refund Processed</span>
+        <div className={`flex items-center gap-3 px-3 py-2 rounded-lg border ${isSuccess ? 'text-emerald-600 bg-emerald-50 border-emerald-100' : 'text-red-600 bg-red-50 border-red-100'}`}>
+          {isSuccess ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
+          <span className="font-semibold text-sm">{isSuccess ? 'Refund Processed' : 'Refund Failed'}</span>
         </div>
         
         <div className="space-y-2.5 text-sm pt-1">
@@ -91,7 +95,7 @@ export function RefundConfirmationCard({
           </div>
           <div className="grid grid-cols-[80px_1fr] gap-2 items-start">
             <span className="text-zinc-500 font-medium">Status:</span>
-            <span className="text-emerald-600 font-medium">SUCCESSFUL</span>
+            <span className={`font-medium ${isSuccess ? 'text-emerald-600' : 'text-red-600'}`}>{status}</span>
           </div>
           <div className="grid grid-cols-[80px_1fr] gap-2 items-start">
             <span className="text-zinc-500 font-medium">Date:</span>
